@@ -6,3 +6,5 @@ router.get('/test-me', function (req, res) {
 });
 
 module.exports = router;
+
+//This is route.js file
