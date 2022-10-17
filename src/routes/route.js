@@ -8,8 +8,9 @@ router.get('/test-me', function (req, res) {
     res.send('My second ever api!')
 });
 
-router.get('/students', function (req, res){
-    console.log("The path params in the request are : ", req.params)
+router.get('/student', function (req, res){
+    let params = req.params
+    console.log("The path params in the request are : ", params)
     let students = ['Sabiha', 'Neha', 'Akash']
     res.send(students)
 })
