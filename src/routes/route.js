@@ -8,7 +8,7 @@ router.get('/test-me', function (req, res) {
     res.send('My second ever api!')
 });
 
-router.get('/student', function (req, res){
+router.get('/student', function (req, res) {
     let params = req.params
     console.log("The path params in the request are : ", params)
     let students = ['Sabiha', 'Neha', 'Akash']
@@ -17,7 +17,7 @@ router.get('/student', function (req, res){
 
 
 // Example 1 for path params
-router.get('/students/:studentName', function(req, res){
+router.get('/students/:studentName', function (req, res) {
     // ':' denotes that the following part of route is a variable
     // The value of this variable is what we are sending in the request url after /students
     // This value is set in the form of an object inside req.params
@@ -29,16 +29,78 @@ router.get('/students/:studentName', function(req, res){
     // params attribute is fixed in a request object
     // params contains the path parameters object
     console.log("The path params in the request are : ", myParams)
-    res.send('The full name is ' + myParams.studentName )
+    res.send('The full name is ' + myParams.studentName)
 })
 
 // Example 2 for path params
-router.get('/student-details/:name', function(req, res){
+router.get('/student-details/:name', function (req, res) {
     let requestParams = req.params
     console.log("This is the request ", requestParams)
     let studentName = requestParams.name
     console.log('Name of the student is ', studentName)
     res.send('Dummy response')
+})
+
+router.get('/movies', function (req, res) {
+    let movieArr = ['Drishyam 2', 'Brahmastra', 'RRR', 'KGF 2', 'Iron Man']
+    res.send(movieArr)
+})
+
+router.get('/movies/:indexNumber', function (req, res) {
+    let index = req.params.indexNumber
+    let movieArr = ['Drishyam 2', 'Brahmastra', 'RRR', 'KGF 2', 'Iron Man']
+    if (index < movieArr.length && index >= 0) {
+        res.send(movieArr[index])
+    }
+    else {
+        res.send('Invalid index')
+    }
+})
+
+
+router.get('/films', function (req, res) {
+    let movieObj = [{
+        id: 1,
+        name: 'The Shining'
+    }, {
+        id: 2,
+        name: 'Incendies'
+    }, {
+        id: 3,
+        name: 'Rang de Basanti'
+    }, {
+        id: 4,
+        name: 'Finding Nemo'
+    }]
+
+    res.send(movieObj)
+
+})
+
+
+router.get('/films/:filmId', function (req, res) {
+    let getId = req.params.filmId
+    let movieObj = [{
+        id: 1,
+        name: 'The Shining'
+    }, {
+        id: 2,
+        name: 'Incendies'
+    }, {
+        id: 3,
+        name: 'Rang de Basanti'
+    }, {
+        id: 4,
+        name: 'Finding Nemo'
+    }]
+
+    let findId = movieObj.find(ele => ele.id == getId)
+    if(!findId){
+        res.send('No movie exists with this id')
+    }
+    {
+    res.send(findId)
+    }
 })
 
 module.exports = router;
