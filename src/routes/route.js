@@ -1,41 +1,47 @@
 const express = require('express');
 const router = express.Router();
 
-const logger = require('../logger/logger')
-const helper = require('../util/helper')
-const validator = require('../validator/formatter')
-const month = require('../month/monthName')
-const union = require('../union/union')
+router.get('/person', function (req, res) {
+    let voterAge = req.query.votingAge
+    let eligibleVoters = []
 
-// router.get('/test-me', function (req, res) {
-//     res.send('My first ever API')
-//     console.log(logger.myFunc())
-// })
-
-// router.get('/test-me', function (req, res) {
-//     res.send('My first ever API')
-//     console.log(helper.printDate())
-//     console.log(helper.printMonth())
-//     console.log(helper.getBatchInfo())
-// })
-
-// router.get('/test-me', function (req, res) {
-//     res.send('My first ever API')
-//     console.log(validator.trim())
-//     console.log(validator.changeToUpperCase())
-//     console.log(validator.changetoLowerCase())
-// })
-
-// router.get('/test-me', function (req, res) {
-//     res.send('My first ever API')
-//     console.log(month.monthNames)
-//     console.log(month.tailedArr)
-// })
-
-router.get('/test-me', function (req, res) {
-    res.send('My first ever API')
-    console.log('Union of the arrays : ', union.unionArr)
-    console.log('Pairs are : ', union.paired)
+    let persons = [
+        {
+            name: "PK",
+            age: 10,
+            votingStatus: false
+        },
+        {
+            name: "SK",
+            age: 20,
+            votingStatus: false
+        },
+        {
+            name: "AA",
+            age: 70,
+            votingStatus: false
+        },
+        {
+            name: "SC",
+            age: 5,
+            votingStatus: false
+        },
+        {
+            name: "HO",
+            age: 40,
+            votingStatus: false
+        }
+    ]
+   
+    let data = persons.forEach(person => {
+        if (person.age >= voterAge)
+            person.votingStatus = true
+        if (person.votingStatus == true) {
+            eligibleVoters.push(person)
+        }
+    })
+    res.send({ data: eligibleVoters })
 })
+
 
 module.exports = router;
